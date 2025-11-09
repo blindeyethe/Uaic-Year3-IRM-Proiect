@@ -1,0 +1,18 @@
+{
+    "name": "LoaderObject.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:4b74b74742953d648a4ae5eb30a36d28"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

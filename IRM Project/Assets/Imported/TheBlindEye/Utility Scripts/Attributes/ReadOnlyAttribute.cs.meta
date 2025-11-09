@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 6ebfb009b87a79b4191f520485810129
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 229331
+  packageName: Loader Object
+  packageVersion: 1.0.0
+  assetPath: Assets/TheBlindEye/Utility Scripts/Attributes/ReadOnlyAttribute.cs
+  uploadId: 518119

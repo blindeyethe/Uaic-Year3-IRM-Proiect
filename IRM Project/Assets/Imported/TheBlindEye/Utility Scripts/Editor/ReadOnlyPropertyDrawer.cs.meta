@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: c8ddb9a1d0e852f4ba4bc17b09f1242d
+timeCreated: 1657462218
+AssetOrigin:
+  serializedVersion: 1
+  productId: 229331
+  packageName: Loader Object
+  packageVersion: 1.0.0
+  assetPath: Assets/TheBlindEye/Utility Scripts/Editor/ReadOnlyPropertyDrawer.cs
+  uploadId: 518119

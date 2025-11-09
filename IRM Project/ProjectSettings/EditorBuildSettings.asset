@@ -6,9 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Game.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Boxing.unity
+    guid: 7a48cb5a62716c045858a8240492d2ba
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bbd79b57552e1f94d9e52d70f83373fc, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 66962f9bc6eabe947a1a308e03c3edc4, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 08029925496a4bb4dbc13dfd0776efa9, type: 2}

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4b74b74742953d648a4ae5eb30a36d28
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 229331
+  packageName: Loader Object
+  packageVersion: 1.0.0
+  assetPath: Assets/TheBlindEye/LoaderObject/Scripts/LoaderObject.asmdef
+  uploadId: 518119

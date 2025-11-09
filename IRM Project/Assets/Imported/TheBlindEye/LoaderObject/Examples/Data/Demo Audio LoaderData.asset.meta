@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f49cd769a579bec48955a356a2f7f37e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 229331
+  packageName: Loader Object
+  packageVersion: 1.0.0
+  assetPath: Assets/TheBlindEye/LoaderObject/Examples/Data/Demo Audio LoaderData.asset
+  uploadId: 518119

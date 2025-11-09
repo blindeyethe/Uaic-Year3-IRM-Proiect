@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: a8eb05358a074a4db303a27d7d017ad3
+timeCreated: 1659107785
+AssetOrigin:
+  serializedVersion: 1
+  productId: 229331
+  packageName: Loader Object
+  packageVersion: 1.0.0
+  assetPath: Assets/TheBlindEye/LoaderObject/Examples/Scripts/PostProcessing/PostProcessingLoaderData.cs
+  uploadId: 518119
