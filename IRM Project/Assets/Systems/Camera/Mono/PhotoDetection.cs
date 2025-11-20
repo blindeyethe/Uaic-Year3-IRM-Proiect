@@ -5,7 +5,7 @@ using IRM.PhotoSystem;
 
 namespace IRM.CameraSystem
 {
-    public class CameraController : MonoBehaviour
+    public class PhotoDetection : MonoBehaviour
     {
         [SerializeField] private Camera cameraView;
         [SerializeField] private LayerMask detectionLayerMask;

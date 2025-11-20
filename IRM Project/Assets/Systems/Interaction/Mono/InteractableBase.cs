@@ -4,6 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace IRM.InteractionSystem
 {
+    [RequireComponent(typeof(IXRSelectInteractable))]
     public abstract class InteractableBase : MonoBehaviour
     {
         protected IXRSelectInteractable _interactable;
