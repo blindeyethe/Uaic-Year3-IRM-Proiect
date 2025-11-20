@@ -16,7 +16,6 @@ namespace IRM.AlbumSystem.Loader
         public override void LoadData(PhotoData data)
         {
             var wasFound = GetValue(data.name);
-            Debug.Log(data.name + " " + wasFound);
             if (!wasFound)
                 return;
             

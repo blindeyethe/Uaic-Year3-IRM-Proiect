@@ -9,7 +9,7 @@ namespace Systems.AnimalSystem
         public Material[] Materials; // temp
         public bool CanPerformAction => Random.value < AnimalData.PerformActionChance;
         public Animator Animator { get; private set; }
-        public AnimalDetection AnimalDetection { get; private set; }
+        //public AnimalDetection AnimalDetection { get; private set; }
         [field:SerializeField] public AnimalData AnimalData { get; private set; }
         
         private AnimalState[] _states;
@@ -18,7 +18,7 @@ namespace Systems.AnimalSystem
         private void Awake()
         {
             Animator = GetComponent<Animator>();
-            AnimalDetection = GetComponent<AnimalDetection>();
+            //AnimalDetection = GetComponent<AnimalDetection>();
             MeshRenderer = GetComponent<MeshRenderer>();
         }
         

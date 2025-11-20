@@ -32,7 +32,7 @@ namespace IRM.AlbumSystem
             for (int i = 0; i < 4; i++)
                 pages[i].transform.MoveLocalRotation(_pageRotations[i], pageTurnDuration, cancellationToken);
 
-            ShowPageContents(0, pages[1], pages[2]);
+            ShowPageContents(_currentOpenIndex, pages[1], pages[2]);
             pages.SetActive(true);
 
             await rightCover;
