@@ -21,12 +21,10 @@ namespace Systems.AnimalSystem
             if (_idleTimer <= stateMachine.AnimalData.IdleDuration)
                 return;
 
-            /*
             if (stateMachine.ChangeState<AnimalDrinkState>())
                 return;
             
             if (stateMachine.CanPerformAction) stateMachine.ChangeState<AnimalActionState>();
-            */
             stateMachine.ChangeState<AnimalRoamState>();
         }
     }

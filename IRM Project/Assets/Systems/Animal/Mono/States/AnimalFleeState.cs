@@ -4,27 +4,27 @@ using UnityEngine.AI;
 
 namespace Systems.AnimalSystem
 {
-    public class AnimalRoamState : AnimalState
+    public class AnimalFleeState : AnimalState
     {
         [SerializeField] private AnimationClip walkingAnimation;
         private NavMeshAgent _navAgent;
         private AnimalBounds _animalBounds;
-
+        private Transform _transform;
+        
         private void Awake()
         {
             _navAgent = GetComponent<NavMeshAgent>();
             _animalBounds = GetComponentInParent<AnimalBounds>();
+            _transform = transform;
         }
-
         public override void OnStart(AnimalStateMachine stateMachine)
         {
-            stateMachine.MeshRenderer.material = stateMachine.Materials[1]; //temp
+            stateMachine.MeshRenderer.material = stateMachine.Materials[5];
             
-            //stateMachine.Animator.Play(walkingAnimation.name);
+            var randomPosition = _animalBounds.GetFleePosition(_transform.position, 
+                stateMachine.AnimalDetection.PreviousPlayerPosition, stateMachine.AnimalData.FleeDistance);
             
-            var randomPosition = _animalBounds.GetRandomPosition();
-            
-            _navAgent.speed = stateMachine.AnimalData.WalkingSpeed;
+            _navAgent.speed = stateMachine.AnimalData.RunningSpeed;
             _navAgent.SetDestination(randomPosition);
         }
 
@@ -32,12 +32,8 @@ namespace Systems.AnimalSystem
         {
             if (!_navAgent.HasReachedTarget())
                 return;
-            
-            if (stateMachine.ChangeState<AnimalDrinkState>())
-                return;
-            
-            if (stateMachine.CanPerformAction) stateMachine.ChangeState<AnimalActionState>();
-            stateMachine.ChangeState<AnimalIdleState>();
+           
+            stateMachine.ChangeState<AnimalAlertState>();
         }
     }
 }
