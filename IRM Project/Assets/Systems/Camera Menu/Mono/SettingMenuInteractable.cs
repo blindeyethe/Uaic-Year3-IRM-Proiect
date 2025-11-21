@@ -1,10 +1,10 @@
-﻿using IRM.InteractionSystem;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace IRM.CameraMenuSystems.UI
 {
-    internal sealed class SettingMenuInteractable : InteractableBase
+    internal sealed class SettingMenuInteractable : XRBaseInteractable
     {
         [SerializeField] private float radius = 1f;
         [SerializeField] private float rotationSpeed = 200f;
