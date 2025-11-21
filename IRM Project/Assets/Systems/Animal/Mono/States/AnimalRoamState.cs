@@ -33,12 +33,10 @@ namespace Systems.AnimalSystem
             if (!_navAgent.HasReachedTarget())
                 return;
             
-            /*
             if (stateMachine.ChangeState<AnimalDrinkState>())
                 return;
             
             if (stateMachine.CanPerformAction) stateMachine.ChangeState<AnimalActionState>();
-            */
             stateMachine.ChangeState<AnimalIdleState>();
         }
     }
