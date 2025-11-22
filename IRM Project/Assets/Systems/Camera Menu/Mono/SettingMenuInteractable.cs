@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
@@ -6,6 +7,7 @@ namespace IRM.CameraMenuSystems.UI
 {
     internal sealed class SettingMenuInteractable : XRBaseInteractable
     {
+        [SerializeField] private Volume volume;
         [SerializeField] private float radius = 1f;
         [SerializeField] private float rotationSpeed = 200f;
 
@@ -14,14 +16,18 @@ namespace IRM.CameraMenuSystems.UI
         private Transform interactorTransform;
         private Vector3 _lastInteractorPosition;
 
+        private CameraSetting _currentSetting;
+        private CameraSetting[] _settings;
+        
         protected override void Awake()
         {
             base.Awake();
+            _settings = GetComponentsInChildren<CameraSetting>();
             _transform = transform;
         }
 
         private void Start() =>
-            ArrangeChildren();
+            InitializeSettings();
 
         protected override void OnSelectEntered(SelectEnterEventArgs eventInfo)
         {
@@ -36,6 +42,7 @@ namespace IRM.CameraMenuSystems.UI
         {
             interactorTransform = null;
             SnapRotation();
+            UpdateCurrentSetting();
         }
 
         private void Update()
@@ -52,7 +59,7 @@ namespace IRM.CameraMenuSystems.UI
 
         private void SnapRotation()
         {
-            int count = transform.childCount;
+            int count = _settings.Length;
             float anglePerSlot = 360f / count;
 
             var eulerAngles = _transform.eulerAngles;
@@ -61,18 +68,44 @@ namespace IRM.CameraMenuSystems.UI
             _transform.rotation = Quaternion.Euler(eulerAngles.x, snappedY, eulerAngles.z);
         }
         
-        private void ArrangeChildren()
+        private void InitializeSettings()
         {
-            int count = transform.childCount;
+            int count = _settings.Length;
             
             for (int i = 0; i < count; i++)
             {
                 float angle = i * Mathf.PI * 2 / count;
                 var position = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * radius;
                 
-                var child = transform.GetChild(i);
-                child.localPosition = position;
+                _settings[i].transform.localPosition = position;
+                _settings[i].Initialize(volume);
             }
+        }
+        
+        private int GetCurrentIndex()
+        {
+            int count = _settings.Length;
+            float anglePerSlot = 360f / count;
+
+            float y = _transform.eulerAngles.y % 360f;
+            y = y < 0 ? y + 360f : y;
+
+            int index = Mathf.RoundToInt(y / anglePerSlot) % count;
+            return index;
+        }
+        
+        private void UpdateCurrentSetting()
+        {
+            int index = GetCurrentIndex();
+            if (_currentSetting == _settings[index])
+                return;
+            
+            if(_currentSetting != null)
+                _currentSetting.OnExited();
+            
+            _currentSetting = _settings[index];
+            
+            _currentSetting.OnSelected();
         }
     }
 }

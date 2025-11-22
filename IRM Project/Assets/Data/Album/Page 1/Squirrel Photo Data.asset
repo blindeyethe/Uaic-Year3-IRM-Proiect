@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previewImage: {fileID: 21300000, guid: 78b53bfb142cf7d4a9097da594b387c0, type: 3}
   photoObjects: 1
-  wasFound: 1
+  wasFound: 0
