@@ -8,10 +8,26 @@ namespace IRM.CameraSystem
     {
         [SerializeField] private GameObject cameraSettings;
 
-        protected override void OnSelectEntered(SelectEnterEventArgs eventInfo) =>
+        private PhotoDetection _photoDetection;
+        private PhotoValidator _photoValidator;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _photoDetection = GetComponent<PhotoDetection>();
+            _photoValidator = GetComponent<PhotoValidator>();
+        }
+
+        protected override void OnSelectEnter(SelectEnterEventArgs eventInfo) =>
            cameraSettings.SetActive(true);
         
-        protected override void OnSelectExited(SelectExitEventArgs eventInfo) =>
+        protected override void OnSelectExit(SelectExitEventArgs eventInfo) =>
             cameraSettings.SetActive(false);
+
+        protected override void OnFocusEnter(FocusEnterEventArgs eventInfo)
+        {
+            var detectedObjects = _photoDetection.Detect();
+            _photoValidator.Validate(detectedObjects);
+        }
     }
 }

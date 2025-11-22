@@ -2,6 +2,7 @@
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using IRM.InteractionSystem;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace IRM.Utility
 {
@@ -9,10 +10,13 @@ namespace IRM.Utility
     {
         [SerializeField] private XRSocketInteractor socketInteractor;
 
-        private void Start() =>
+        protected override void Start()
+        {
+            base.Start();
             AttachToSocket();
+        }
 
-        protected override void OnSelectExited(SelectExitEventArgs eventInfo)
+        protected override void OnSelectExit(SelectExitEventArgs eventInfo)
         {
             var interactor = eventInfo.interactorObject as XRBaseInteractor;
             if (interactor != socketInteractor)
@@ -22,7 +26,7 @@ namespace IRM.Utility
         private void AttachToSocket()
         {
             if (!socketInteractor.hasSelection)
-                socketInteractor.StartManualInteraction(_interactable);
+                socketInteractor.StartManualInteraction((IXRSelectInteractable)_interactable);
         }
     }
 }

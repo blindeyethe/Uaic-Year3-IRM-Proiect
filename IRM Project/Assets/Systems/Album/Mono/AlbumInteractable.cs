@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using IRM.InteractionSystem;
+using IRM.PlayerSystem;
 
 namespace IRM.AlbumSystem
 {
@@ -23,28 +24,25 @@ namespace IRM.AlbumSystem
             _controller = GetComponent<AlbumController>();
         }
 
+        protected override void Start()
+        {
+            base.Start();
+            PlayerManager.Instance.SubscribeOnUpButton(OnUpPerformed);
+            PlayerManager.Instance.SubscribeOnDownButton(OnDownPerformed);
+        }
+
         protected override void OnDisable()
         {
             base.OnDisable();
-            CancelAlbumAction();
-        }
-
-        private void Update()
-        {
-            if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
-            {
-                TurnPage(true);
-            }
             
-            if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
-            {
-                TurnPage(false);
-            }
+            PlayerManager.Instance.UnsubscribeOnUpButton(OnUpPerformed);
+            PlayerManager.Instance.UnsubscribeOnDownButton(OnDownPerformed);
+            CancelAlbumAction();
         }
 
         private void TurnPage(bool swipeRight)
         {
-            if (!_canTurnPage)
+            if (!_canTurnPage || !_interactable.isSelected)
                 return;
             
             if (!_controller.CanSwipeInDirection(swipeRight))
@@ -71,7 +69,7 @@ namespace IRM.AlbumSystem
             _canTurnPage = true;
         }
 
-        protected override void OnSelectEntered(SelectEnterEventArgs eventInfo)
+        protected override void OnSelectEnter(SelectEnterEventArgs eventInfo)
         {
             var interactor = eventInfo.interactorObject as XRBaseInteractor;
             bool openAlbum = interactor != socketInteractor;
@@ -95,6 +93,12 @@ namespace IRM.AlbumSystem
             _canTurnPage = true;
             _isOpen = openAlbum;
         }
+
+        private void OnUpPerformed(InputAction.CallbackContext _) =>
+            TurnPage(false);
+
+        private void OnDownPerformed(InputAction.CallbackContext _) =>
+            TurnPage(true);
         
         private void CancelAlbumAction()
         {

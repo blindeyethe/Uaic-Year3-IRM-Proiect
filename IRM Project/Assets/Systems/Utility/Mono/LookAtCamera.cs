@@ -18,9 +18,7 @@ namespace IRM.Utility
                 _cameraTransform = mainCamera.transform;
         }
 
-        private void LateUpdate()
-        {
+        private void LateUpdate() =>
             transform.LookAt(_cameraTransform.position);
-        }
     }
 }

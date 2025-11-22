@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using IRM.Utility;
@@ -7,30 +8,32 @@ namespace IRM.CameraSystem
 {
     public class PhotoDetection : MonoBehaviour
     {
+        public static event Action<Bounds> OnObjectDetected;
+        public static event Action OnStartObjectDetection;
+        
         [SerializeField] private Camera cameraView;
         [SerializeField] private LayerMask detectionLayerMask;
         
-        private PhotoValidator _photoValidator;
-        
+        private Transform _cameraViewTransform;
         private readonly RaycastHit[] _hits = new RaycastHit[10];
 
-        private void Awake() =>
-            _photoValidator = GetComponent<PhotoValidator>();
+        private void Start() =>
+            _cameraViewTransform = cameraView.transform;
 
-        private void Update()
+        private void Update() =>
+            Detect();
+
+        public PhotoObject Detect()
         {
-            if (!Keyboard.current.pKey.wasPressedThisFrame)
-                return;
-    
-            var cameraTransform = cameraView.transform;
             cameraView.CalculateFrustumBounds(out var boundCenter, out var halfExtents);
             
             int count = Physics.BoxCastNonAlloc(boundCenter, halfExtents, 
-                cameraTransform.forward, _hits, cameraTransform.rotation, 
+                _cameraViewTransform.forward, _hits, _cameraViewTransform.rotation, 
                 0f, detectionLayerMask);
 
+            OnStartObjectDetection?.Invoke();
             if (count == 0)
-                return;
+                return 0;
 
             var detectedObjects = PhotoObject.None;
             var frustumPlanes = GeometryUtility.CalculateFrustumPlanes(cameraView);
@@ -41,13 +44,16 @@ namespace IRM.CameraSystem
                 if (!GeometryUtility.TestPlanesAABB(frustumPlanes, hitCollider.bounds))
                     continue;
 
-                if (hitCollider.TryGetComponent<DetectionObject>(out var detectionObject))
-                    detectedObjects |= detectionObject.PhotoObject;
+                if (!hitCollider.TryGetComponent<DetectionObject>(out var detectionObject)) 
+                    continue;
+                
+                OnObjectDetected?.Invoke(hitCollider.bounds);
+                detectedObjects |= detectionObject.PhotoObject;
             }
 
-            _photoValidator.Validate(detectedObjects);
+            return detectedObjects;
         }
-
+        
         private void OnDrawGizmos()
         {
             Camera.main.CalculateFrustumBounds(out var boundCenter, out var halfExtents);
